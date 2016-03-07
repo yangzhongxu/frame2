@@ -6,9 +6,14 @@
     tools:context="yzx.study.frame2.MainActivity">
 
 
-    <yzx.study.frame2.test.VideoTouchTestView
+    <TextView
+        android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <!--<yzx.study.frame2.test.VideoTouchTestView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
 
 
 </RelativeLayout>
