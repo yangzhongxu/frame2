@@ -3,12 +3,19 @@ package yzx.study.frame2;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 import yzx.study.frame2.callback.GenericCallback;
 import yzx.study.frame2.test.GetSystemLog;
@@ -24,15 +31,28 @@ public class MainActivity extends AppCompatActivity {
         final TextView tv = (TextView) findViewById(R.id.tv);
 
 
-        GetSystemLog.getLog(new GenericCallback<String>() {
-            public void callback(final String s) {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        tv.setText(s);
-                    }
-                });
-            }
-        });
+//        Runtime.getRuntime().addShutdownHook(new Thread() {
+//            public void run() {
+//                File f = new File(Environment.getExternalStorageDirectory(), "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.txt");
+//                try {
+//                    FileOutputStream out = new FileOutputStream(f);
+//                    out.write("aa".getBytes());
+//                    out.flush();
+//                    out.close();
+//                } catch (IOException e) {
+//                }
+//            }
+//        });
+
+//        GetSystemLog.getLog(new GenericCallback<String>() {
+//            public void callback(final String s) {
+//                runOnUiThread(new Runnable() {
+//                    public void run() {
+//                        tv.setText(s);
+//                    }
+//                });
+//            }
+//        });
 
 //        EventBroadcast.init(this);
 //        EventBroadcast.register(1, receiver);
@@ -51,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         GetSystemLog.stop();
+        System.exit(0);
     }
 
 }
