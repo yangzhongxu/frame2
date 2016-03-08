@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 
 import yzx.study.frame2.callback.GenericCallback;
 import yzx.study.frame2.test.GetSystemLog;
+import yzx.study.frame2.test.LocalSocketServer;
 import yzx.study.frame2.util.EventBroadcast;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +30,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView tv = (TextView) findViewById(R.id.tv);
+
+        LocalSocketServer.start(new GenericCallback<String>() {
+            public Object callback(final String s) {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                return "ok";
+            }
+        }, new Runnable() {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "error!!!!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
 
 
 //        Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -72,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         GetSystemLog.stop();
         System.exit(0);
+        LocalSocketServer.stop();
     }
 
 }

@@ -30,6 +30,8 @@ public class LocalSocketServer {
                     server = new LocalServerSocket("yz.a.bdc");
                     while (running) {
                         LocalSocket ls = server.accept();
+                        if (!running)
+                            break;
                         dealInOut(ls, onMessageReceive);
                     }
                     LocalSocketServer.stop();
