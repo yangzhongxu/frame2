@@ -77,8 +77,6 @@ public class LocalSocketServer {
                         sb.append(line);
                         sb.append("\n");
                     }
-                    reader.close();
-                    socket.shutdownInput();
                     if (sb.length() > 0)
                         sb.deleteCharAt(sb.length() - 1);
 /* 写入内容 */
@@ -88,11 +86,8 @@ public class LocalSocketServer {
                             PrintWriter writer = new PrintWriter(socket.getOutputStream());
                             writer.write(result.toString());
                             writer.flush();
-                            writer.close();
                         }
                     }
-                    socket.shutdownOutput();
-                    socket.close();
                 } catch (Exception e) {
                 }
             }
