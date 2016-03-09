@@ -4,7 +4,7 @@ android {
 
     signingConfigs {
         common {
-            keyAlias 'xxx'
+            keyAlias '666'
             keyPassword '123456'
             storeFile file('/jks/test.jks')
             storePassword '123456'
