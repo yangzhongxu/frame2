@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import yzx.study.frame2.callback.GenericCallback;
+import yzx.study.frame2.jnif.JNI;
 import yzx.study.frame2.test.GetSystemLog;
 import yzx.study.frame2.test.LocalSocketServer;
 import yzx.study.frame2.util.EventBroadcast;
@@ -31,24 +32,26 @@ public class MainActivity extends AppCompatActivity {
 
         final TextView tv = (TextView) findViewById(R.id.tv);
 
-        LocalSocketServer.start(new GenericCallback<String>() {
-            public Object callback(final String s) {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
-                    }
-                });
-                return "ok";
-            }
-        }, new Runnable() {
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), "error!!!!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
-        });
+        Toast.makeText(MainActivity.this, JNI.test(), Toast.LENGTH_SHORT).show();
+
+//        LocalSocketServer.start(new GenericCallback<String>() {
+//            public Object callback(final String s) {
+//                runOnUiThread(new Runnable() {
+//                    public void run() {
+//                        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//                return "ok";
+//            }
+//        }, new Runnable() {
+//            public void run() {
+//                runOnUiThread(new Runnable() {
+//                    public void run() {
+//                        Toast.makeText(getApplicationContext(), "error!!!!", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            }
+//        });
 
 
 //        Runtime.getRuntime().addShutdownHook(new Thread() {
