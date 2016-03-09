@@ -15,6 +15,13 @@ android {
             stl = "stlport_static"
         }
     }
+
+    sourceSets {
+        main() {
+            jniLibs.srcDirs = ['jni']
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
