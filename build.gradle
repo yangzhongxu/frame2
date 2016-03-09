@@ -1,6 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+
+    signingConfigs {
+        common {
+            keyAlias 'xxx'
+            keyPassword '123456'
+            storeFile file('/jks/test.jks')
+            storePassword '123456'
+        }
+    }
+
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
@@ -23,8 +33,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            signingConfig signingConfigs.common
+        }
         release {
             minifyEnabled false
+            signingConfig signingConfigs.common
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
