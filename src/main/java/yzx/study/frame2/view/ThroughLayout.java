@@ -13,11 +13,10 @@ public class ThroughLayout extends FrameLayout {
         super(context, attrs);
     }
 
-
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        if (mDelegateView == null)
-            return true;
+        if (mDelegateView == null || !canThrough)
+            return false;
 
         ViewParent parent = getParent();
         if (parent != null) {
@@ -32,9 +31,15 @@ public class ThroughLayout extends FrameLayout {
 
 
     private View mDelegateView;
+    private boolean canThrough;
+
 
     public void setViewOnLowLayer(View view) {
         mDelegateView = view;
+    }
+
+    public void setCanThrough(boolean can) {
+        canThrough = can;
     }
 
 }
