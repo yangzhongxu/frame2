@@ -1,4 +1,4 @@
-package yzx.study.frame2.util;
+﻿package yzx.study.frame2.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -42,7 +42,7 @@ public class StreamTool {
      * @param callback 每次读取的字节回调
      * @throws IOException error
      *****************************************************************************************/
-    public static void read(InputStream in, OnSectionReadedCallBack callback) throws IOException {
+    public static void read(InputStream in, OnSectionReadedCallBack callback) throws Exception {
         byte[] buffer = new byte[SECTION_BUFFER_SIZE];
         int len;
         while ((len = in.read(buffer)) != -1)
@@ -54,7 +54,7 @@ public class StreamTool {
      * 回调
      *****************************************************************************************/
     public static interface OnSectionReadedCallBack {
-        void onReaded(byte[] data, int len);
+        void onReaded(byte[] data, int len) throws Exception;
     }
 
 }
