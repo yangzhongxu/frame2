@@ -94,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         GetSystemLog.stop();
-        System.exit(0);
         LocalSocketServer.stop();
+        System.exit(0);
     }
 
 }
