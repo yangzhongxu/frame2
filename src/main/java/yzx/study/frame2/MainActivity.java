@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import yzx.study.frame2.callback.GenericCallback;
+import yzx.study.frame2.img.glide.ImgTool;
 import yzx.study.frame2.jnif.JNI;
 import yzx.study.frame2.test.GetSystemLog;
 import yzx.study.frame2.test.LocalSocketServer;
@@ -30,9 +32,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView tv = (TextView) findViewById(R.id.tv);
+        ImgTool.init(this);
+        ImageView iv = (ImageView) findViewById(R.id.iv);
+        ImgTool.display(R.mipmap.ic_launcher, iv, 0);
 
-        Toast.makeText(MainActivity.this, JNI.test(), Toast.LENGTH_SHORT).show();
+
+//  final TextView tv = (TextView) findViewById(R.id.tv);
+
+// Toast.makeText(MainActivity.this, JNI.test(), Toast.LENGTH_SHORT).show();
 
 //        LocalSocketServer.start(new GenericCallback<String>() {
 //            public Object callback(final String s) {

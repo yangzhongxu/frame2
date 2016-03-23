@@ -1,4 +1,4 @@
-﻿package yzx.study.frame2.util;
+package yzx.study.frame2.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
