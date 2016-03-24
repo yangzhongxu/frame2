@@ -12,6 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -32,9 +37,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImgTool.init(this);
-        ImageView iv = (ImageView) findViewById(R.id.iv);
-        ImgTool.display(R.mipmap.ic_launcher, iv, 0);
+        Glide.with(this).load(R.mipmap.ic_launcher).crossFade().into(new SimpleTarget<GlideDrawable>() {
+            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
+                Toast.makeText(MainActivity.this, "11", Toast.LENGTH_SHORT).show();
+                ImageView iv = (ImageView) findViewById(R.id.iv);
+                iv.setImageDrawable(resource);
+            }
+        });
+        Toast.makeText(this, "22", Toast.LENGTH_SHORT).show();
+
+
+//        ImgTool.init(this);
+//        ImageView iv = (ImageView) findViewById(R.id.iv);
+//        ImgTool.display(R.mipmap.ic_launcher, iv, 0);
 
 
 //  final TextView tv = (TextView) findViewById(R.id.tv);
