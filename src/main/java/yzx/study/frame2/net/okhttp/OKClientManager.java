@@ -2,9 +2,11 @@ package yzx.study.frame2.net.okhttp;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.OkHttpClient;
@@ -60,7 +62,12 @@ public class OKClientManager {
      * @param callback 回调
      */
     public static void post(String url, @Nullable Map<String, String> params, final NetCallback callback) {
-        post(url, null, params, callback);
+        FormEncodingBuilder builder = new FormEncodingBuilder();
+        if (params != null)
+            for (Map.Entry<String, String> en : params.entrySet())
+                builder.add(en.getKey(), en.getValue());
+        Request request = new Request.Builder().url(url).tag(url).post(builder.build()).build();
+        startRequest(request, callback);
     }
 
 
@@ -72,14 +79,13 @@ public class OKClientManager {
      * @param params   参数
      * @param callback 回调
      */
-    public static void post(String url, List<File> files, Map<String, String> params, final NetCallback callback) {
+    public static void post(String url, @NonNull List<File> files, Map<String, String> params, final NetCallback callback) {
         MultipartBuilder builder = new MultipartBuilder().type(MultipartBuilder.FORM);
         if (params != null && !params.isEmpty())
             for (Map.Entry<String, String> en : params.entrySet())
                 builder.addFormDataPart(en.getKey(), en.getValue());
-        if (files != null && !files.isEmpty())
-            for (File file : files)
-                builder.addFormDataPart("file", null, RequestBody.create(MediaType.parse("image/png"), file));
+        for (File file : files)
+            builder.addFormDataPart("file", null, RequestBody.create(MediaType.parse("image/png"), file));
         startRequest(new Request.Builder().url(url).tag(url).post(builder.build()).build(), callback);
     }
 
