@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.target.ImageViewTarget;
@@ -36,6 +37,9 @@ public class ImgTool {
         Glide.with(context).load(url).override(100, 100).into(iv);
         //error 图片
         Glide.with(context).load(url).error(R.mipmap.ic_launcher).into(iv);
+
+        RequestManager rm = Glide.with(context);
+
     }
 
     public static void display(int res, ImageView iv, int placeHolder) {
