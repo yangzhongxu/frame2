@@ -42,6 +42,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    productFlavors {
+        xiaomi {
+            manifestPlaceholders = ["test_value": "xiaomi"]
+        }
+        qihu360 {
+            manifestPlaceholders = ["test_value": "360"]
+        }
+    }
+
 }
 
 dependencies {
