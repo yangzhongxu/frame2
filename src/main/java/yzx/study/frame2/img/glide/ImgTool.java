@@ -14,7 +14,7 @@ import java.io.File;
 import yzx.study.frame2.R;
 
 /**
- * 这个类不好用 可以直接用Glide， 这只是演示简单用法
+ * 这个类不好用  这只是演示简单用法
  */
 public class ImgTool {
 
@@ -40,6 +40,9 @@ public class ImgTool {
 
         RequestManager rm = Glide.with(context);
 
+        Glide.get(context).clearMemory();
+
+        Glide.get(context).trimMemory(100);
     }
 
     public static void display(int res, ImageView iv, int placeHolder) {
