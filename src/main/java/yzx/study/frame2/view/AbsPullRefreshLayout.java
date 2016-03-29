@@ -75,8 +75,9 @@ public abstract class AbsPullRefreshLayout extends LinearLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (isRefreshing || isHorizontalTouch || hasDealTouchByChild || !enable)
-            return super.dispatchTouchEvent(ev);
+        if (ev.getAction() != MotionEvent.ACTION_UP)
+            if (isRefreshing || isHorizontalTouch || hasDealTouchByChild || !enable)
+                return super.dispatchTouchEvent(ev);
         if (anim != null && anim.isRunning())
             return true;
         boolean atTop = !ViewCompat.canScrollVertically(mContentView, -1);
@@ -134,8 +135,10 @@ public abstract class AbsPullRefreshLayout extends LinearLayout {
 
         } else if (ev.getAction() == MotionEvent.ACTION_UP) {
 
-            if (!hasDispatchCancelToChild)
+            if (!hasDispatchCancelToChild) {
+                hasDealTouchByChild = hasDispatchCancelToChild = isVerticalTouch = isHorizontalTouch = false;
                 return super.dispatchTouchEvent(ev);
+            }
 
             hasDealTouchByChild = hasDispatchCancelToChild = isVerticalTouch = isHorizontalTouch = false;
             if (state == state_ready) {
