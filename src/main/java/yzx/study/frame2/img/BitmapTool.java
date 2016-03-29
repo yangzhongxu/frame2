@@ -18,7 +18,6 @@ public class BitmapTool {
         return BitmapFactory.decodeFile(file.getAbsolutePath(), options);
     }
 
-
     public static long getJustBitmapSize(File file, int inSimpleSize) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
