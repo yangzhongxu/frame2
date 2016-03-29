@@ -19,7 +19,6 @@ import yzx.study.frame2.R;
 public class ImgTool {
 
     /**
-     * Glide的生命周期随context , 不能用application
      */
     private static Context context;
 
