@@ -1,34 +1,14 @@
 package yzx.study.frame2;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-import yzx.study.frame2.callback.GenericCallback;
-import yzx.study.frame2.img.glide.ImgTool;
-import yzx.study.frame2.jnif.JNI;
+import yzx.study.frame2.errorCollect.ECActivity;
+import yzx.study.frame2.errorCollect.ECManager;
 import yzx.study.frame2.test.GetSystemLog;
 import yzx.study.frame2.test.LocalSocketServer;
-import yzx.study.frame2.util.EventBroadcast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,14 +17,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Glide.with(this).load(R.mipmap.ic_launcher).crossFade().into(new SimpleTarget<GlideDrawable>() {
-            public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
-                Toast.makeText(MainActivity.this, "11", Toast.LENGTH_SHORT).show();
-                ImageView iv = (ImageView) findViewById(R.id.iv);
-                iv.setImageDrawable(resource);
+        ECManager.install(this);
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                startActivity(new Intent(MainActivity.this, ECActivity.class));
             }
-        });
-        Toast.makeText(this, "22", Toast.LENGTH_SHORT).show();
+        }, 1500);
 
 
 //        ImgTool.init(this);

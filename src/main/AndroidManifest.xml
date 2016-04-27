@@ -26,6 +26,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".errorCollect.ECActivity"  android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
