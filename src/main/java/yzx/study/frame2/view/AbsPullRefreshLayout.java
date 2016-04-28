@@ -7,6 +7,7 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.LinearLayout;
 
 public abstract class AbsPullRefreshLayout extends LinearLayout {
@@ -29,15 +30,32 @@ public abstract class AbsPullRefreshLayout extends LinearLayout {
     //
 
 
+    /* View是否还能往上滑 */
+    private boolean canViewScrollUp(View view) {
+        if (android.os.Build.VERSION.SDK_INT < 14) {
+            if (view instanceof AbsListView) {
+                final AbsListView absListView = (AbsListView) view;
+                return absListView.getChildCount() > 0 && (absListView.getFirstVisiblePosition() > 0 || absListView.getChildAt(0)
+                        .getTop() < absListView.getPaddingTop());
+            } else
+                return ViewCompat.canScrollVertically(view, -1) || view.getScrollY() > 0;
+        } else
+            return ViewCompat.canScrollVertically(view, -1);
+    }
+
+
     private View mHeaderView;
     private View mContentView;
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
+
         if (getChildCount() != 1)
             throw new IllegalStateException("必须有且只有一个子View");
+
         setOrientation(VERTICAL);
+
         if (mHeaderView == null) {
             mContentView = getChildAt(0);
             mHeaderView = genHeaderView();
@@ -78,11 +96,14 @@ public abstract class AbsPullRefreshLayout extends LinearLayout {
         if (ev.getAction() != MotionEvent.ACTION_UP)
             if (isRefreshing || isHorizontalTouch || hasDealTouchByChild || !enable)
                 return super.dispatchTouchEvent(ev);
+
         if (anim != null && anim.isRunning())
             return true;
-        boolean atTop = !ViewCompat.canScrollVertically(mContentView, -1);
+
+        boolean atTop = !canViewScrollUp(mContentView);
         if (!atTop)
             return super.dispatchTouchEvent(ev);
+
 
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
 
